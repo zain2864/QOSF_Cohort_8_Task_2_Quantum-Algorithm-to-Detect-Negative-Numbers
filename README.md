@@ -6,21 +6,27 @@ This repository serves as Zain Mughal's application for the QOSF Mentorship Prog
 The primary objective of this task is to determine whether a given list of numbers contains any negative integers, utilizing the power of Grover's quantum search algorithm. The algorithm offers significant speedup over classical methods and showcases the benefits of quantum computing in solving specific problems more efficiently.
 
 ## Overview 
-1. Binary Representation: Each integer in the list is transformed into its two's complement binary representation, facilitating the identification of negative numbers.
-2. Quantum Circuit Initialization: The quantum circuit is set up with qubits based on the maximum bit-length of the numbers in the list.
-3. Oracle Function: This crucial function marks the quantum states corresponding to negative numbers using a Z-gate.
-4. Grover's Diffusion Operator: Amplifies the probability of states that represent negative numbers, bringing us closer to the solution.
-5. Iterations: Grover's algorithm requires a specific number of iterations, optimally given by $\frac{\pi}{4} \sqrt{N}$ to achieve the highest probability of success.
+1. Binary Representation: Each integer in the list undergoes a transformation to its two's complement binary representation, ensuring that negative numbers are identifiable with a leading '1' bit.
+2. Quantum Circuit Initialization: A quantum circuit is initialized based on the maximum bit-length from our list of numbers. All qubits are set to a superposition state at the start.
+3. Oracle Function: The oracle plays a pivotal role in Grover's algorithm. It recognizes and introduces a phase flip to the desired solution state. For this task, the oracle was designed to mark states corresponding to negative numbers. With the two's complement representation, marking states with a leading '1' bit becomes straightforward using a Z-gate on the auxiliary qubit.
+4. Amplitude Amplification: Central to Grover's algorithm is amplitude amplification. This process magnifies the amplitude of desired states while reducing the amplitude of undesired states.
+5. Grover's Diffusion Operator: Post the oracle's action, Grover's diffusion operator is applied. This operator amplifies the amplitude of marked states by inverting the amplitude of all states concerning the average amplitude.
+6. Iterations: The oracle and diffusion steps get repeated approximately $\frac{\pi}{4} \sqrt{N}$ times, where N represents the number of items in the list. This iteration count is optimal for Grover's algorithm, maximizing the likelihood of measuring a marked state.
 
-## Technical Insights
-- Amplitude Amplification: At the heart of Grover's algorithm is the principle of amplitude amplification. It magnifies the amplitude of the desired states while diminishing others.
-- Quantum Oracle: The oracle introduces a phase flip to the solution state, marking it for amplification.
-- Diffusion Operator: Post the oracle's action, the diffusion operator inverts the amplitude of all states concerning the average amplitude, facilitating the amplification process.
-- Handling Multiple Solutions: In situations with multiple negative numbers, Grover's algorithm has an increased probability of finding a solution.
+## Efficiency and Justification
+Employing Grover's algorithm offers a significant speedup over classical counterparts. Typically, each number would have to be checked individually in a classical approach, leading to linear runtime in worst-case scenarios. With Grover's algorithm, a quadratic speedup is achieved, approximating a \sqrt{N} runtime.
+It's worth noting that Grover's algorithm, despite its speedup, provides a probabilistic solution. This means the correct answer is highly probable but not guaranteed in every run. Unlike deterministic classical algorithms, however, the success probability can be amplified by repeating the quantum procedure multiple times.
+The two's complement representation for numbers efficiently encodes the sign of the number in the most significant bit. This encoding allows our oracle to be simplistic and efficient, marking negative numbers by inspecting the leading bit.
 
-##Benefits
-- Speed: Grover's algorithm provides a quadratic speedup over classical algorithms, making this quantum approach significantly faster.
-- Efficiency: The two's complement representation ensures a straightforward and efficient identification of negative numbers.
+## Validity for All Kinds of Numbers
+The proposed quantum approach caters to all integers, be they positive or negative. Here's the rationale:
+1. Universal Two's Complement Representation: Every integer, positive or negative, can be depicted in two's complement binary form. This encoding ensures that negative numbers always start with a '1' bit, distinguishing them from positive numbers and zero.
+2. Scalability: The quantum circuit's size adapts based on the maximum bit-length of the numbers in the list. As numbers increase in magnitude, they can be processed by merely augmenting the number of qubits in the circuit.
+3. Robust Oracle: The oracle's design promises to consistently mark states corresponding to negative numbers, irrespective of the number's magnitude or exact value.
 
-###Future Directions
-The implemented quantum algorithm serves as a foundational step. It can be extended and optimized for larger datasets and more complex quantum search problems. The inherent properties of quantum states and the unique features of quantum algorithms like Grover's open up a world of possibilities.
+
+## References: 
+- Quantum Complexity Theory (QCT), Bernstein, Ethan, and Umesh Vazirani: This paper offered an in-depth exploration of the efficiency and intricacies of quantum algorithms. It profoundly influenced the implementation of Grover's algorithm in this task.
+- Rapid Solutions in Quantum Computing (RSQC), Deutsch, David, and Richard Jozsa: RSQC elaborated on the speed advantages quantum algorithms hold over classical ones. This work demonstrated how Grover's algorithm can rapidly solve problems, especially when sifting through unsorted databases.
+- Database Search in Quantum Computing (DSQC), Grover, Lov K: DSQC provided a thorough understanding of applying Grover's algorithm to search problems. Its exhaustive analysis of Grover's iterative structure and the diffusion operator was foundational in creating the quantum circuits for this task.
+- Qiskit Documentation: An invaluable guide on the intricate details of crafting our quantum circuits and algorithms using the Qiskit library.
