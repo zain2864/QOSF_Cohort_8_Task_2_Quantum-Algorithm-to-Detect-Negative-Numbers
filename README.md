@@ -1,0 +1,1 @@
+# QOSF_Cohort_8_Task_2_Quantum-Algorithm-to-Detect-Negative-Numbers
