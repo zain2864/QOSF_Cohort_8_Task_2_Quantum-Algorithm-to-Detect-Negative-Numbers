@@ -14,19 +14,21 @@ The primary objective of this task is to determine whether a given list of numbe
 6. Iterations: The oracle and diffusion steps get repeated approximately $\frac{\pi}{4} \sqrt{N}$ times, where N represents the number of items in the list. This iteration count is optimal for Grover's algorithm, maximizing the likelihood of measuring a marked state.
 
 ## Efficiency and Justification
-Employing Grover's algorithm offers a significant speedup over classical counterparts. Typically, each number would have to be checked individually in a classical approach, leading to linear runtime in worst-case scenarios. With Grover's algorithm, a quadratic speedup is achieved, approximating a \sqrt{N} runtime.
+Employing Grover's algorithm offers a significant speedup over classical counterparts. Typically, each number would have to be checked individually in a classical approach, leading to linear runtime in worst-case scenarios. With Grover's algorithm, a quadratic speedup is achieved, approximating a $\sqrt{N}$ runtime.
+
 It's worth noting that Grover's algorithm, despite its speedup, provides a probabilistic solution. This means the correct answer is highly probable but not guaranteed in every run. Unlike deterministic classical algorithms, however, the success probability can be amplified by repeating the quantum procedure multiple times.
+
 The two's complement representation for numbers efficiently encodes the sign of the number in the most significant bit. This encoding allows our oracle to be simplistic and efficient, marking negative numbers by inspecting the leading bit.
 
 ## Validity for All Kinds of Numbers
 The proposed quantum approach caters to all integers, be they positive or negative. Here's the rationale:
-1. Universal Two's Complement Representation: Every integer, positive or negative, can be depicted in two's complement binary form. This encoding ensures that negative numbers always start with a '1' bit, distinguishing them from positive numbers and zero.
+1. Universal Two's Complement Representation: Every integer, positive or negative, can be depicted in two's complement binary form. This encoding ensures that negative numbers always start with a '1' bit, distinguishing them from positive numbers and zero. This simple yet powerful characteristic ensures that our quantum solution is valid for all negative numbers. The use of the two's complement representation is universal in digital systems for signed number representation, further validating our approach for any list of integers.
 2. Scalability: The quantum circuit's size adapts based on the maximum bit-length of the numbers in the list. As numbers increase in magnitude, they can be processed by merely augmenting the number of qubits in the circuit.
 3. Robust Oracle: The oracle's design promises to consistently mark states corresponding to negative numbers, irrespective of the number's magnitude or exact value.
 
 
 ## References: 
-- Quantum Complexity Theory (QCT), Bernstein, Ethan, and Umesh Vazirani: This paper offered an in-depth exploration of the efficiency and intricacies of quantum algorithms. It profoundly influenced the implementation of Grover's algorithm in this task.
-- Rapid Solutions in Quantum Computing (RSQC), Deutsch, David, and Richard Jozsa: RSQC elaborated on the speed advantages quantum algorithms hold over classical ones. This work demonstrated how Grover's algorithm can rapidly solve problems, especially when sifting through unsorted databases.
-- Database Search in Quantum Computing (DSQC), Grover, Lov K: DSQC provided a thorough understanding of applying Grover's algorithm to search problems. Its exhaustive analysis of Grover's iterative structure and the diffusion operator was foundational in creating the quantum circuits for this task.
-- Qiskit Documentation: An invaluable guide on the intricate details of crafting our quantum circuits and algorithms using the Qiskit library.
+- Quantum Complexity Theory (QCT), Bernstein, Ethan, and Umesh Vazirani: This paper provided an in-depth analysis of the efficiency and complexity of quantum algorithms. Leveraging its insights, this task implemented the Grover's algorithm ensuring that the quantum circuit design adhered to the principles ensuring optimal efficiency. The paper's discussion on quantum oracle was particularly useful in designing the oracle for the problem.
+- Rapid Solutions in Quantum Computing (RSQC), Deutsch, David, and Richard Jozsa: RSQC discussed the speed advantages quantum algorithms could offer over classical counterparts. Inspired by its discussions, this task aimed to demonstrate how Grover's algorithm can provide rapid solutions, especially when searching unsorted databases, which is akin to the problem of searching for a negative number in an unsorted list.
+- Database Search in Quantum Computing (DSQC), Grover, Lov K: DSQC provided a comprehensive understanding of how Grover's algorithm can be applied to search problems. The paper's detailed analysis of Grover's iterative structure and the diffusion operator was pivotal in creating the quantum circuits for the problem. The paper's illustrations and circuit designs greatly influenced the circuit implementation.
+- Qiskit Documentation: The official documentation provided guidance on the implementation details of the quantum circuits and algorithms using the Qiskit library.
